@@ -46,10 +46,13 @@ router.post("/signin", async (req, res) => {
     return res.json({ status: "Invalid Password" });
   }
   res.json({
-    status: "success",
+    status: "success","userdata":data
   });
 });
 
-
+router.get("/view",async(req,res)=>{
+  let result = await usersModels.find()
+  res.json(result)
+})
 
 module.exports = router;
