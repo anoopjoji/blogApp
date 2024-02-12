@@ -1,6 +1,6 @@
 const express = require("express");
-const usersModels = require("../models/usersModels");
-const router = express.Router(); // Fix: use express.Router() instead of express.router
+const usersModels = require("../models/usersModels"); // Assuming this is the correct model
+const router = express.Router();
 
 const bcrypt = require("bcryptjs");
 
@@ -18,7 +18,8 @@ router.post("/signup", async (req, res) => {
       data.password = hashedPassword;
       console.log(data);
 
-      let user = new signUpModels(data);
+      // Corrected model name here
+      let user = new usersModels(data);
       let result = user.save();
 
       res.json({ status: "success" });
@@ -45,8 +46,13 @@ router.post("/signin", async (req, res) => {
     return res.json({ status: "Invalid Password" });
   }
   res.json({
-    status: "success",
+    status: "success","userdata":data
   });
 });
 
-module.exports = router; // Fix: use router instead of express.router
+router.get("/view",async(req,res)=>{
+  let result = await usersModels.find()
+  res.json(result)
+})
+
+module.exports = router;

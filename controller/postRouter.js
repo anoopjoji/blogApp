@@ -12,8 +12,8 @@ router.post("/add",async(req,res)=>{
 
 })
 
-    router.get("/view",async(req,res)=>{
-        let result = await postmodel.find().populate("userId","name age ")
+    router.get("/viewall",async(req,res)=>{
+        let result = await postmodel.find().populate("userId","name age phone_no address pincode email password")
         res.json(result)
     })
 
